@@ -1,0 +1,308 @@
+body {
+	font-family: "Tinos", serif;
+	color: black;
+}
+
+.signup button {
+	background-color: #efd9c7;
+	color: black;
+	border: none;
+}
+
+.signup button:hover {
+	background-color: #fbf8f0;
+	color: black;
+}
+
+.signup a {
+	color: #f1bd78;
+}
+
+.login button {
+	background-color: #efd9c7;
+	color: black;
+	border: none;
+}
+
+.login button:hover {
+	background-color: #fbf8f0;
+	color: black;
+}
+
+.login a {
+	color: #f1bd78;
+}
+
+.navbar {
+	background-color: #f1bd78;
+	position: sticky;
+	top: 0;
+	z-index: 1000;
+}
+
+.nav-link .fa-shopping-cart {
+	font-size: 1.5rem;
+	position: relative;
+}
+
+#cart-count {
+	font-size: 0.8rem;
+	position: absolute;
+	top: -8px; /* Mengatur posisi di atas ikon */
+	right: -10px; /* Menyesuaikan jarak ke kanan */
+	padding: 0.2rem 0.4rem;
+}
+
+.navbar .fa-user-circle {
+	font-size: 1.5em;
+	color: #333;
+}
+
+.riwayat_bayar {
+	height: calc(100vh - 116px); /* Mengurangi tinggi navbar 60px */
+}
+
+.hero-section {
+	position: relative;
+	background-image: url("../img/cooking_home.jpeg");
+	background-size: cover;
+	background-position: center;
+	color: white;
+	padding: 100px 60px;
+	text-align: left;
+	font-weight: bold;
+}
+
+.hero-section::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(0, 0, 0, 0.2);
+	z-index: 1;
+}
+
+.hero-section p {
+	position: relative;
+	z-index: 2;
+}
+
+.display-4 {
+	font-weight: 900;
+	width: 60%;
+}
+
+.hero-section input {
+	position: relative;
+	z-index: 2;
+	width: 50%;
+	border-radius: 16px;
+	margin-bottom: 8px;
+}
+
+.hero-section button {
+	position: relative;
+	z-index: 2;
+	width: 120px;
+	background-color: #efd9c7;
+	color: black;
+	border: none;
+	border-radius: 16px;
+	cursor: pointer;
+}
+
+.hero-section button:hover {
+	background-color: #fbf8f0;
+	color: black;
+}
+
+.recipe_lists .container {
+	padding: 0;
+}
+
+.recipe_lists .card {
+	height: 304px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.recipe_lists img {
+	height: 160px;
+	object-fit: cover;
+}
+
+.explore_tab {
+	width: 100%;
+	padding: 0 128px;
+	margin: 0;
+	background-color: #efd9c7;
+	text-align: center;
+}
+
+.explore_tab .circle-image {
+	width: 100px;
+	height: 100px;
+	object-fit: cover;
+	border-radius: 50%;
+}
+
+.explore_tab a {
+	text-decoration: none;
+	color: inherit;
+}
+
+.explore_tab a:hover {
+	cursor: pointer;
+}
+
+.youtube_video h2 {
+	text-align: center;
+}
+
+.youtube_video .card {
+	height: 336px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.join_member .container {
+	padding: 0;
+}
+
+.join_member h2 {
+	text-align: center;
+}
+
+.join_member .card {
+	height: 288px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.join_member a {
+	background-color: #851d1c;
+	border: none;
+}
+
+.join_member a:hover {
+	background-color: #b22222;
+}
+
+footer {
+	background-color: #f1bd78;
+	padding: 40px 100px;
+}
+
+footer a {
+	color: black;
+}
+
+.halaman_resep a {
+	text-decoration: none;
+	color: inherit;
+}
+
+.halaman_resep a:hover {
+	color: #000;
+}
+
+.halaman_resep .recipe-img {
+	height: 200px;
+	object-fit: cover;
+	width: 100%;
+}
+
+.form-control:focus {
+	outline: none;
+	box-shadow: none;
+	border-color: #efd9c7;
+}
+
+.form-control option:hover {
+	background-color: #efd9c7;
+}
+
+.halaman_resep button {
+	background-color: #efd9c7;
+	border: none;
+	color: black;
+}
+
+.halaman_resep button:hover {
+	background-color: #fbf8f0;
+	color: black;
+}
+
+.list_kelas .card {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+
+.list_kelas .card-img-top {
+	object-fit: cover; /* Menjaga gambar tetap proporsional */
+	height: 200px; /* Menentukan tinggi gambar tetap */
+}
+
+.list_kelas .card a {
+	text-decoration: none;
+	color: black;
+}
+
+/* Styling untuk pagination */
+.pagination {
+	display: flex; /* Menggunakan Flexbox untuk penyusunan item */
+	justify-content: center; /* Memusatkan item secara horizontal */
+	align-items: center; /* Memusatkan item secara vertikal */
+	margin-top: 20px;
+	padding: 0; /* Menghapus padding default */
+}
+
+.pagination .page-item {
+	margin: 0 5px; /* Memberikan jarak antar page-item */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	min-width: 40px; /* Menentukan lebar minimum untuk page-item */
+	height: 40px; /* Menentukan tinggi tetap untuk semua page-item */
+}
+
+.pagination .page-link {
+	display: block; /* Membuat link mencakup seluruh area .page-item */
+	width: 100%; /* Mengisi seluruh lebar .page-item */
+	height: 100%; /* Mengisi seluruh tinggi .page-item */
+	color: #007bff;
+	text-decoration: none;
+	text-align: center;
+	line-height: 40px; /* Memastikan teks berada di tengah secara vertikal */
+}
+
+.pagination .page-item.active {
+	background-color: #007bff;
+	border-color: #007bff;
+}
+
+.pagination .page-item.active .page-link {
+	color: white;
+}
+
+.pagination .page-link:hover {
+	background-color: #007bff;
+	color: white;
+}
+
+/* Menyesuaikan supaya nomor di dalam page-item aktif tetap berada di tengah */
+.pagination .page-item.active .page-link {
+	line-height: 40px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+}
