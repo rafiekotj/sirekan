@@ -3,10 +3,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Resep extends CI_Controller
 {
-
   public function __construct()
   {
     parent::__construct();
+    // Load model rating
+    $this->load->model('ModelRating');
   }
 
   public function index()
@@ -64,11 +65,42 @@ class Resep extends CI_Controller
       show_404();
     }
 
+    // Ambil rating untuk resep ini
+    $data['rating'] = $this->ModelRating->get_average_rating($id);
+
     $data['title'] = $data['resep']->nama_resep;
 
     // Load view detail dan kirim data
     $this->load->view('templates/header', $data);
     $this->load->view('resep/detail', $data);
     $this->load->view('templates/footer');
+  }
+
+  // Fungsi untuk menangani form rating
+  public function submit_rating($id_resep)
+  {
+    $rating = $this->input->post('rating');
+    $user_id = $this->session->userdata('user_id'); // Asumsi ada session user yang sedang login
+
+    // Validasi rating
+    if ($rating < 1 || $rating > 5) {
+      // Jika rating tidak valid, kirimkan respons error
+      echo json_encode(['status' => 'error', 'message' => 'Rating harus antara 1 dan 5.']);
+      return;
+    }
+
+    // Cek jika pengguna sudah pernah memberikan rating sebelumnya
+    $existing_rating = $this->ModelRating->get_user_rating($id_resep, $user_id);
+
+    if ($existing_rating) {
+      // Jika sudah ada, update rating yang lama
+      $this->ModelRating->update_rating($id_resep, $user_id, $rating);
+    } else {
+      // Jika belum ada, simpan rating baru
+      $this->ModelRating->insert_rating($id_resep, $user_id, $rating);
+    }
+
+    // Kirimkan respons sukses
+    echo json_encode(['status' => 'success', 'message' => 'Rating berhasil diberikan!']);
   }
 }

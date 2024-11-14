@@ -51,7 +51,7 @@
         </li>
       </ul>
 
-      <ul class="navbar-nav ml-auto mr-4">
+      <ul class="navbar-nav ml-auto">
         <li class="nav-item">
           <a class="nav-link" href="<?= site_url('keranjang') ?>">
             <i class="fas fa-shopping-cart"></i>
@@ -61,6 +61,8 @@
             <?php endif; ?>
           </a>
         </li>
+
+        <div class="navbar-divider"></div>
 
         <?php if ($this->session->userdata('user_id')): ?>
         <li class="nav-item dropdown">

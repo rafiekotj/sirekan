@@ -37,6 +37,39 @@
   </div>
 </footer>
 
+<script>
+// Fungsi untuk menangani klik pada bintang
+document.querySelectorAll('.stars input').forEach((star) => {
+  star.addEventListener('click', function() {
+    var rating = this.value; // Ambil nilai rating dari input yang dipilih
+
+    // Kirim rating ke server menggunakan AJAX
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '<?php echo site_url('resep/submit_rating/' . $resep->id); ?>', true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+    xhr.onload = function() {
+      if (xhr.status == 200) {
+        var response = JSON.parse(xhr.responseText);
+        if (response.status === 'success') {
+          // Tampilkan pesan sukses (misalnya, notifikasi)
+          alert(response.message);
+          // Update tampilan rating jika diperlukan (misalnya, update jumlah rata-rata)
+        } else {
+          // Tampilkan pesan error jika rating tidak valid
+          alert(response.message);
+        }
+      } else {
+        alert('Terjadi kesalahan saat mengirim rating');
+      }
+    };
+
+    // Kirimkan rating ke server
+    xhr.send('rating=' + rating);
+  });
+});
+</script>
+
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
   integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
