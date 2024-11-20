@@ -7,6 +7,11 @@ class Keranjang extends CI_Controller
     parent::__construct();
     $this->load->model('ModelKeranjang'); // Pastikan model keranjang sudah ada
     $this->load->model('ModelKelas'); // Untuk mengambil data kelas
+
+    if (!$this->session->userdata('user_id')) {
+      $this->session->set_flashdata('error', 'Silakan login untuk mengakses keranjang.');
+      redirect('auth/login');
+    }
   }
 
   public function index()
@@ -38,37 +43,39 @@ class Keranjang extends CI_Controller
   {
     $user_id = $this->session->userdata('user_id'); // Ambil user_id dari session
 
+    if (!$user_id) {
+      $this->session->set_flashdata('error', 'Anda harus login untuk menambahkan kelas ke keranjang.');
+      redirect('auth/login');
+      return;
+    }
+
     // Cek apakah kelas sudah ada di keranjang untuk user_id ini
     $existing_item = $this->ModelKeranjang->get_item_by_user_and_kelas($user_id, $kelas_id);
 
     if ($existing_item) {
-      // Jika kelas sudah ada, beri notifikasi atau arahkan kembali
-      $this->session->set_flashdata('message', 'Kelas ini sudah ada di keranjang.');
+      $this->session->set_flashdata('message', 'Kelas ini sudah ada di keranjang Anda.');
       redirect('keranjang');
     } else {
-      // Jika belum ada, tambahkan ke keranjang
       $kelas = $this->ModelKelas->get_kelas_by_id($kelas_id);
 
-      // Cek jika kelas ditemukan
       if ($kelas) {
         $data = [
           'user_id' => $user_id,
           'kelas_id' => $kelas->id,
-          'jumlah' => 1, // Menambahkan 1 item
+          'jumlah' => 1,
           'created_at' => date('Y-m-d H:i:s')
         ];
 
-        // Tambahkan item ke keranjang
         $this->ModelKeranjang->insert($data);
-
-        // Redirect ke halaman keranjang setelah ditambahkan
-        redirect('keranjang');
+        $this->session->set_flashdata('success', 'Kelas berhasil ditambahkan ke keranjang.');
       } else {
-        // Jika kelas tidak ditemukan, kembali ke halaman kelas
-        redirect('kelas');
+        $this->session->set_flashdata('error', 'Kelas tidak ditemukan.');
       }
+
+      redirect('keranjang');
     }
   }
+
 
   public function delete($id)
   {

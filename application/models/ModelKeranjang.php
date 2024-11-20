@@ -15,12 +15,20 @@ class ModelKeranjang extends CI_Model
   // Fungsi untuk menambahkan item ke keranjang
   public function insert($data)
   {
-    return $this->db->insert('keranjang', $data);
+    if (isset($data['user_id']) && isset($data['kelas_id'])) {
+      return $this->db->insert('keranjang', $data);
+    }
+    return false; // Return false if data is invalid
   }
+
 
   // Fungsi untuk memeriksa apakah kelas sudah ada di keranjang pengguna
   public function get_item_by_user_and_kelas($user_id, $kelas_id)
   {
+    if (empty($user_id) || empty($kelas_id)) {
+      return null; // Return null if the user_id or kelas_id is empty
+    }
+
     $this->db->select('*');
     $this->db->from('keranjang');
     $this->db->where('user_id', $user_id);
@@ -28,6 +36,7 @@ class ModelKeranjang extends CI_Model
     $query = $this->db->get();
     return $query->row(); // Returns the row if the item is found, otherwise null
   }
+
   public function get_by_id($id)
   {
     return $this->db->get_where('kelas', ['id' => $id])->row();
@@ -37,13 +46,23 @@ class ModelKeranjang extends CI_Model
   {
     $this->db->where('id', $item_id);
     $this->db->where('user_id', $user_id);
-    $this->db->delete('keranjang');
-  }
 
+    $item = $this->db->get('keranjang')->row();
+    if ($item) {
+      $this->db->delete('keranjang');
+    } else {
+      return false; // Return false if item does not exist
+    }
+  }
 
   public function delete_all_by_user($user_id)
   {
     $this->db->where('user_id', $user_id);
-    $this->db->delete('keranjang');
+    $query = $this->db->get('keranjang');
+    if ($query->num_rows() > 0) {
+      $this->db->delete('keranjang');
+    } else {
+      return false; // Return false if no items are found for this user
+    }
   }
 }

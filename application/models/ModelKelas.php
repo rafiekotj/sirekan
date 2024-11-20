@@ -7,16 +7,57 @@ class ModelKelas extends CI_Model
     parent::__construct();
   }
 
+  // Fungsi untuk mendapatkan jumlah total kelas (termasuk filter pencarian dan kategori)
+  public function get_total_kelas_filtered($search = '', $kategori = '')
+  {
+    if ($search) {
+      $this->db->like('nama_kelas', $search); // Filter berdasarkan nama kelas
+    }
+    if ($kategori) {
+      $this->db->where('kategori', $kategori); // Filter berdasarkan kategori
+    }
+
+    $query = $this->db->get('kelas');
+    return $query->num_rows(); // Mengembalikan jumlah total kelas yang ditemukan
+  }
+
+  // Fungsi untuk mendapatkan kelas dengan filter pencarian dan kategori, dan menggunakan pagination
+  public function get_filtered_classes($search = '', $kategori = '', $limit = NULL, $offset = NULL)
+  {
+    if ($search) {
+      $this->db->like('nama_kelas', $search); // Filter berdasarkan nama kelas
+    }
+    if ($kategori) {
+      $this->db->where('kategori', $kategori); // Filter berdasarkan kategori
+    }
+
+    if ($limit) {
+      $this->db->limit($limit, $offset); // Menambahkan limit dan offset untuk pagination
+    }
+
+    $query = $this->db->get('kelas');
+    return $query->result();
+  }
+
+  // Fungsi untuk mendapatkan kategori unik dari kelas
+  public function get_categories()
+  {
+    $this->db->distinct();
+    $this->db->select('kategori');
+    $query = $this->db->get('kelas');
+    return $query->result();
+  }
+
   // Fungsi untuk mendapatkan jumlah total kelas
   public function get_total_kelas()
   {
     return $this->db->count_all('kelas');
   }
 
-  // Fungsi untuk mendapatkan kelas dengan limit berdasarkan halaman
   public function get_kelas_paged($limit, $start)
   {
     $this->db->limit($limit, $start);
+    $this->db->select('*');
     $query = $this->db->get('kelas');
     return $query->result();
   }
@@ -40,7 +81,8 @@ class ModelKelas extends CI_Model
       'harga' => $data['harga'],
       'gambar' => $data['gambar'],
       'status_kelas' => $data['status_kelas'],
-      'status' => $data['status']
+      'status' => $data['status'],
+      'kategori' => $data['kategori'] // Pastikan kategori juga disertakan
     ];
     return $this->db->insert('kelas', $data_insert);
   }

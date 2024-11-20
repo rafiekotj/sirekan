@@ -1,57 +1,70 @@
 body {
 	font-family: "Tinos", serif;
 	color: black;
+	letter-spacing: 0.25px;
 }
 
 /* SIGN UP */
 .signup button {
-	background-color: #efd9c7;
+	background-color: #feac3f;
 	color: black;
 	border: none;
 }
 
 .signup button:hover {
-	background-color: #fbf8f0;
+	background-color: #ffd282;
 	color: black;
 }
 
 .signup a {
-	color: #f1bd78;
+	color: #feac3f;
 }
 
 /* LOGIN */
 .login button {
-	background-color: #efd9c7;
+	background-color: #feac3f;
 	color: black;
 	border: none;
 }
 
 .login button:hover {
-	background-color: #fbf8f0;
+	background-color: #ffd282;
 	color: black;
 }
 
 .login a {
-	color: #f1bd78;
+	color: #feac3f;
 }
 
 /* NAVBAR */
 .navbar {
-	background-color: #f1bd78;
+	background-color: #feac3f;
 	position: sticky;
 	top: 0;
 	z-index: 1000;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-	transition: box-shadow 0.3s ease;
 }
 
 .nav-link {
 	position: relative;
-	transition: color 0.3s ease, transform 0.3s ease;
+	color: white;
+	text-decoration: none;
+	padding: 10px 15px;
 }
 
-.nav-link:hover {
-	transform: translateY(-3px);
+.nav-link::after {
+	content: "";
+	position: absolute;
+	left: 0;
+	bottom: -10px;
+	width: 0;
+	height: 4px;
+	background-color: white;
+	transition: width 0.3s ease;
+}
+
+.nav-item.active .nav-link::after {
+	width: 100%;
 }
 
 .nav-link .fa-shopping-cart {
@@ -70,7 +83,7 @@ body {
 .navbar-divider {
 	width: 1px;
 	height: 24px;
-	background-color: #efd9c7; /* Warna garis */
+	background-color: #ffd282; /* Warna garis */
 	margin: 0 15px; /* Jarak antar elemen */
 	align-self: center; /* Untuk menyelaraskan dengan navbar */
 }
@@ -85,7 +98,7 @@ body {
 
 .navbar .fa-user-circle {
 	font-size: 1.5em;
-	color: #333;
+	color: black;
 }
 
 /* RIWAYAT PEMBELIAN */
@@ -96,7 +109,7 @@ body {
 /* HOME */
 .hero-section {
 	position: relative;
-	background-image: url("../img/cooking_home.jpeg");
+	background-image: url("../img/cooking_home.jpeg") !important;
 	background-size: cover;
 	background-position: center;
 	color: white;
@@ -138,7 +151,7 @@ body {
 	position: relative;
 	z-index: 2;
 	width: 120px;
-	background-color: #efd9c7;
+	background-color: #feac3f;
 	color: black;
 	border: none;
 	border-radius: 16px;
@@ -146,11 +159,18 @@ body {
 }
 
 .hero-section button:hover {
-	background-color: #fbf8f0;
+	background-color: #ffd282;
 	color: black;
 }
 
 /* RESEP LIST CARD */
+.title-line {
+	display: block;
+	border-top: 2px solid #feac3f;
+	width: 180px;
+	margin: 0 auto;
+}
+
 .resepcard .card {
 	transition: transform 0.3s ease, box-shadow 0.3s ease;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -183,7 +203,7 @@ body {
 	width: 100%;
 	padding: 0 128px;
 	margin: 0;
-	background-color: #efd9c7;
+	background-color: #ffd282;
 	text-align: center;
 }
 
@@ -259,17 +279,17 @@ body {
 }
 
 .join_member a {
-	background-color: #851d1c;
+	background-color: #cc2500;
 	border: none;
 }
 
 .join_member a:hover {
-	background-color: #b22222;
+	background-color: #e24800;
 }
 
 /* FOOTER */
 footer {
-	background-color: #f1bd78;
+	background-color: #feac3f;
 	padding: 40px 100px;
 }
 
@@ -321,38 +341,21 @@ footer a {
 .form-control:focus {
 	outline: none;
 	box-shadow: none;
-	border-color: #efd9c7;
+	border-color: #feac3f;
 }
 
 .form-control option:hover {
-	background-color: #efd9c7;
+	background-color: #feac3f;
 }
 
 .halaman_resep button {
-	background-color: #efd9c7;
+	background-color: #feac3f;
 	border: none;
 	color: black;
 }
 
 .halaman_resep button:hover {
-	background-color: #fbf8f0;
-	color: black;
-}
-
-/* KELAS LIST CARD */
-.list_kelas .card {
-	display: flex;
-	flex-direction: column;
-	height: 100%;
-}
-
-.list_kelas .card-img-top {
-	object-fit: cover;
-	height: 200px;
-}
-
-.list_kelas .card a {
-	text-decoration: none;
+	background-color: #ffd282;
 	color: black;
 }
 
@@ -415,7 +418,6 @@ footer a {
 	margin-bottom: 15px;
 }
 
-/* Styling untuk bintang */
 .stars {
 	display: inline-block;
 	direction: rtl;
@@ -424,7 +426,7 @@ footer a {
 
 .stars label {
 	cursor: pointer;
-	color: #d3d3d3; /* Warna bintang kosong */
+	color: #d3d3d3;
 	transition: color 0.3s ease;
 }
 
@@ -433,36 +435,93 @@ footer a {
 }
 
 .stars input[type="radio"]:checked ~ label {
-	color: #f1c40f; /* Warna bintang terpilih */
+	color: #f1c40f;
 }
 
-/* Hover dan klik pada bintang */
 .stars label:hover,
 .stars label:hover ~ label {
-	color: #f1c40f; /* Warna saat hover */
+	color: #f1c40f;
 }
 
-/* Saat bintang dipilih */
 .stars input[type="radio"]:checked + label {
-	color: #f1c40f; /* Warna bintang setelah dipilih */
+	color: #f1c40f;
 }
 
 .stars label:active {
-	color: #f39c12; /* Warna bintang saat diklik */
+	color: #f39c12;
 }
 
-/* Ratingupside yang menampilkan rating */
 .ratingupside h5 {
 	font-size: 18px;
 	margin: 0;
-	color: #333; /* Warna teks rating */
+	color: #333;
 }
 
-/* Rating bintang di bawah nama resep */
 .ratingupside .stars {
 	margin-top: 10px;
 }
 
 .ratingupside .stars .filled {
-	color: #f1c40f; /* Warna bintang yang terisi */
+	color: #f1c40f;
+}
+
+/* KELAS LIST */
+.list_kelas button {
+	background-color: #feac3f;
+	border: none;
+	color: black;
+}
+
+.list_kelas button:hover {
+	background-color: #ffd282;
+	color: black;
+}
+
+.list_kelas .card {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+
+.list_kelas .card .position-relative {
+	position: relative;
+}
+
+.list_kelas .card .position-relative .position-absolute {
+	position: absolute;
+	top: 0;
+	right: 0;
+	margin: 10px;
+	z-index: 10;
+}
+
+.list_kelas .card .position-relative .position-absolute .badge {
+	padding: 0.5rem 1rem;
+	font-size: 1rem;
+	border-radius: 1rem;
+}
+
+.list_kelas .card-img-top {
+	object-fit: cover;
+	height: 200px;
+}
+
+.list_kelas .card a {
+	text-decoration: none;
+	color: black;
+}
+
+/* DETAIL KELAS */
+.detail_button {
+	background-color: #feac3f;
+	border: none;
+	color: black;
+	padding: 10px;
+	font-size: 16px;
+	border-radius: 8px;
+}
+
+.detail_button:hover {
+	background-color: #ffd282;
+	color: black;
 }

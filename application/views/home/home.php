@@ -1,7 +1,7 @@
 <!-- HOME -->
 <div class="hero-section">
-  <p class="display-4">Selamat Datang di Website SIREKAN</p>
-  <p class="lead">Makan Enak Makan Sedap.</p>
+  <p class=" display-4">Selamat Datang di Website SIREKAN</p>
+  <p class="lead">Jelajahi Rasa, Temukan Resep Terbaik.</p>
   <br />
   <form action="<?= site_url('resep') ?>" method="get">
     <input type="text" name="search" class="form-control" placeholder="Cari Resep Hari Ini..." aria-label="Search">
@@ -11,10 +11,9 @@
 
 <!-- RESEP POPULER -->
 <div class="container my-5">
-  <h2 class="mb-4 text-center">Resep Populer</h2>
-
+  <h3 class="text-center text-uppercase">Resep Populer</h3>
+  <div class="mb-4 title-line"></div>
   <div class="row resepcard">
-    <?php if (!empty($resep)) : ?>
     <?php $count = 0; ?>
     <?php foreach ($resep as $item) : ?>
     <?php if ($count >= 6) break; ?>
@@ -34,68 +33,13 @@
     </div>
     <?php $count++; ?>
     <?php endforeach; ?>
-    <?php else : ?>
-    <div class="col-12">
-      <div class="alert alert-warning text-center" role="alert">
-        Tidak ada resep tersedia.
-      </div>
-    </div>
-    <?php endif; ?>
-  </div>
-</div>
-
-<!-- Tab Jelajah -->
-<div class="container-fluid explore_tab py-4">
-  <h2 class="mb-4">Jelajahi Lebih Jauh</h2>
-  <div class="row text-center">
-    <div class="col">
-      <a href="comfort_food_classics.html">
-        <!-- Tautan ke halaman Comfort Food Klasik -->
-        <img src="assets/img/upload/comfort_food.jpg" alt="Comfort Food Klasik" class="circle-image">
-        <p class="fw-bold">COMFORT FOOD KLASIK</p>
-      </a>
-    </div>
-    <div class="col">
-      <a href="international_eats.html">
-        <!-- Tautan ke halaman Hidangan Internasional -->
-        <img src="assets/img/upload/hidangan_internasional.jpeg" alt="Hidangan Internasional" class="circle-image">
-        <p class="fw-bold">HIDANGAN INTERNASIONAL</p>
-      </a>
-    </div>
-    <div class="col">
-      <a href="breakfast_brunch.html">
-        <!-- Tautan ke halaman Sarapan & Brunch -->
-        <img src="assets/img/nasgor1.jpg" alt="Sarapan & Brunch" class="circle-image">
-        <p class="fw-bold">SARAPAN & BRUNCH</p>
-      </a>
-    </div>
-    <div class="col">
-      <a href="community_picks.html">
-        <!-- Tautan ke halaman Pilihan Komunitas -->
-        <img src="assets/img/nasgor1.jpg" alt="Pilihan Komunitas" class="circle-image">
-        <p class="fw-bold">PILIHAN KOMUNITAS</p>
-      </a>
-    </div>
-    <div class="col">
-      <a href="quick_easy.html">
-        <!-- Tautan ke halaman Cepat & Mudah -->
-        <img src="assets/img/nasgor1.jpg" alt="Cepat & Mudah" class="circle-image">
-        <p class="fw-bold">CEPAT & MUDAH</p>
-      </a>
-    </div>
-    <div class="col">
-      <a href="copycat_recipes.html">
-        <!-- Tautan ke halaman Resep Tiruan -->
-        <img src="assets/img/nasgor1.jpg" alt="Resep Tiruan" class="circle-image">
-        <p class="fw-bold">RESEP TIRUAN</p>
-      </a>
-    </div>
   </div>
 </div>
 
 <!-- YouTube Video -->
 <div class="container youtube_video my-5">
-  <h2 class="mb-4">Video Masak Rekomendasi</h2>
+  <h3 class="text-center text-uppercase">Video Rekomendasi</h3>
+  <div class="mb-4 title-line"></div>
   <div class="row">
     <!-- Video 1 -->
     <div class="col-md-4 mb-4">
@@ -141,8 +85,9 @@
 
 <!-- Join Member -->
 <div class="container join_member my-5">
-  <h2 class="mb-4">Ayo Jadi Member !!!</h2>
-  <div class="container">
+  <h3 class="text-center text-uppercase">Ayo Jadi Member !!!</h3>
+  <div class="mb-4 title-line"></div>
+  <div class=" container">
     <div class="row">
       <!-- Free Card -->
       <div class="col-md-4 mb-4">
