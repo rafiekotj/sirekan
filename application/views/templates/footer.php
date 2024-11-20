@@ -2,8 +2,8 @@
   <div class="row">
     <div class="col-md-6">
       <h4>Siap untuk masak?</h4>
-      <p>Sing up untuk mendapatkan email mingguan</p>
-      <form class="form-inline">
+      <p>Sign up untuk mendapatkan email mingguan</p>
+      <form class="form-inline footer_button">
         <input type="email" class="form-control mb-2 mr-sm-2" placeholder="Enter your email">
         <button type="submit" class="btn btn-primary mb-2">Sign Up</button>
       </form>

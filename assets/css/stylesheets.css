@@ -297,6 +297,21 @@ footer a {
 	color: black;
 }
 
+footer a:hover {
+	color: black;
+}
+
+.footer_button button {
+	background-color: #cc2500;
+	border: none;
+	color: white;
+}
+
+.footer_button button:hover {
+	background-color: #e24800;
+	color: white;
+}
+
 /* HALAMAN RESEP */
 .halaman_resep a {
 	text-decoration: none;
