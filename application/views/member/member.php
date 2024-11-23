@@ -1,8 +1,7 @@
 <!-- Jika pengguna belum login, tampilkan semua card -->
 <?php if (!$is_logged_in): ?>
 <div class="container join_member my-5">
-  <h3 class="text-center text-uppercase">Ayo Jadi Member !!!</h3>
-  <div class="mb-4 title-line"></div>
+  <h1 class="text-center text-uppercase mb-5" style="font-weight: 600; letter-spacing: 8px;">Member</h1>
   <div class=" container">
     <div class="row">
       <!-- Free Card -->
@@ -64,8 +63,7 @@
 <?php else: ?>
 <!-- Jika pengguna sudah login, hanya tampilkan akses bulanan dan seumur hidup -->
 <div class="container join_member my-5">
-  <h3 class="text-center text-uppercase">Ayo Jadi Member !!!</h3>
-  <div class="mb-4 title-line"></div>
+  <h1 class="text-center text-uppercase mb-5" style="font-weight: 600; letter-spacing: 8px;">Member</h1>
   <div class=" container">
     <div class="row">
       <!-- Monthly Access Card -->

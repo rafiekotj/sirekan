@@ -18,7 +18,7 @@
 <body>
   <!-- NAVBAR -->
   <nav class="navbar navbar-expand-lg navbar-light">
-    <a class="navbar-brand" href="#">SIREKAN</a>
+    <a class="navbar-brand" href="<?= site_url('home') ?>">SIREKAN</a> <!-- Tautan Home pada logo -->
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -26,31 +26,31 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item <?= ($this->uri->segment(1) == 'home') ? 'active' : '' ?>">
-          <a class="nav-link" href="<?= site_url('home') ?>">Home
-            <?php if ($this->uri->segment(1) == 'home'): ?><span class="sr-only">(current)</span><?php endif; ?>
-          </a>
-        </li>
+        <!-- Menu Resep -->
         <li class="nav-item <?= ($this->uri->segment(1) == 'resep') ? 'active' : '' ?>">
           <a class="nav-link" href="<?= site_url('resep') ?>">Resep
             <?php if ($this->uri->segment(1) == 'resep'): ?><span class="sr-only">(current)</span><?php endif; ?>
           </a>
         </li>
+        <!-- Menu Kelas -->
         <li class="nav-item <?= ($this->uri->segment(1) == 'kelas') ? 'active' : '' ?>">
           <a class="nav-link" href="<?= site_url('kelas') ?>">Kelas
             <?php if ($this->uri->segment(1) == 'kelas'): ?><span class="sr-only">(current)</span><?php endif; ?>
           </a>
         </li>
+        <!-- Menu Member -->
         <li class="nav-item <?= ($this->uri->segment(1) == 'member') ? 'active' : '' ?>">
           <a class="nav-link" href="<?= site_url('member') ?>">Member
             <?php if ($this->uri->segment(1) == 'member'): ?><span class="sr-only">(current)</span><?php endif; ?>
           </a>
         </li>
+        <!-- Menu Tentang -->
         <li class="nav-item <?= ($this->uri->segment(1) == 'tentang') ? 'active' : '' ?>">
           <a class="nav-link" href="<?= site_url('tentang') ?>">Tentang</a>
         </li>
       </ul>
 
+      <!-- Menu Keranjang dan Akun -->
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
           <a class="nav-link" href="<?= site_url('keranjang') ?>">
@@ -99,6 +99,5 @@
         </li>
         <?php endif; ?>
       </ul>
-
     </div>
   </nav>

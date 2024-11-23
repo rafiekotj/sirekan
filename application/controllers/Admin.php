@@ -113,4 +113,76 @@ class Admin extends CI_Controller
       redirect('Admin'); // Kembali ke halaman admin setelah penambahan
     }
   }
+
+  public function update_resep()
+  {
+    $id = $this->input->post('id');
+    $data = [
+      'nama_resep' => $this->input->post('nama_resep'),
+      'negara' => $this->input->post('negara'),
+      'deskripsi' => $this->input->post('deskripsi'),
+      'bahan' => $this->input->post('bahan'),
+      'langkah' => $this->input->post('langkah'),
+      'video_url' => $this->input->post('video_url')
+    ];
+
+    // Cek jika ada gambar baru yang diunggah
+    if ($_FILES['gambar']['name']) {
+      $config['upload_path'] = './assets/img/upload/';
+      $config['allowed_types'] = 'jpg|jpeg|png|gif';
+      $config['max_size'] = 2048; // Maksimal ukuran 2MB
+
+      $this->load->library('upload', $config);
+
+      if ($this->upload->do_upload('gambar')) {
+        $file_data = $this->upload->data();
+        $data['gambar'] = $file_data['file_name']; // Gambar baru
+      }
+    } else {
+      $data['gambar'] = $this->input->post('gambar_lama'); // Jika tidak ada gambar baru, pakai gambar lama
+    }
+
+    // Panggil ModelResep untuk update resep
+    $this->load->model('ModelResep');
+    $this->ModelResep->update_resep($id, $data);
+
+    // Redirect atau tampilkan pesan sukses
+    redirect('Admin/resep');
+  }
+
+  public function update_kelas()
+  {
+    $id = $this->input->post('id');
+    $data = [
+      'nama_kelas' => $this->input->post('nama_kelas'),
+      'deskripsi' => $this->input->post('deskripsi'),
+      'harga' => $this->input->post('harga'),
+      'status_kelas' => $this->input->post('status_kelas'),
+      'status' => $this->input->post('status'),
+      'kategori' => $this->input->post('kategori')
+    ];
+
+    // Cek jika ada gambar baru yang diunggah
+    if ($_FILES['gambar']['name']) {
+      $config['upload_path'] = './assets/img/upload/';
+      $config['allowed_types'] = 'jpg|jpeg|png|gif';
+      $config['max_size'] = 2048; // Maksimal ukuran 2MB
+
+      $this->load->library('upload', $config);
+
+      if ($this->upload->do_upload('gambar')) {
+        $file_data = $this->upload->data();
+        $data['gambar'] = $file_data['file_name']; // Gambar baru
+      }
+    } else {
+      $data['gambar'] = $this->input->post('gambar_lama'); // Jika tidak ada gambar baru, pakai gambar lama
+    }
+
+    // Panggil ModelKelas untuk update kelas
+    $this->load->model('ModelKelas');
+    $this->ModelKelas->update_kelas($id, $data);
+
+    // Redirect atau tampilkan pesan sukses
+    redirect('Admin/kelas');
+  }
 }

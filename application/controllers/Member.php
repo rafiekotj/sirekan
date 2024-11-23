@@ -10,6 +10,8 @@ class Member extends CI_Controller
 
   public function index()
   {
+    $data['title'] = 'Member';
+
     $user_id = $this->session->userdata('user_id');
     $data['is_logged_in'] = false;
 
@@ -24,7 +26,7 @@ class Member extends CI_Controller
     }
 
     // Load halaman member dengan data yang sesuai
-    $this->load->view('templates/header');
+    $this->load->view('templates/header', $data);
     $this->load->view('member/member', $data);
     $this->load->view('templates/footer');
   }

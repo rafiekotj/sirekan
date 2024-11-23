@@ -98,4 +98,22 @@ class ModelKelas extends CI_Model
 
     return $query->result(); // Mengembalikan hasil sebagai array objek
   }
+
+  public function update_kelas($id, $data)
+  {
+    // Menyiapkan data yang akan diperbarui
+    $data_update = [
+      'nama_kelas' => $data['nama_kelas'],
+      'deskripsi' => $data['deskripsi'],
+      'harga' => $data['harga'],
+      'gambar' => $data['gambar'],  // pastikan ini sesuai dengan data yang dipilih (gambar baru atau lama)
+      'status_kelas' => $data['status_kelas'],
+      'status' => $data['status'],
+      'kategori' => $data['kategori']
+    ];
+
+    // Update data kelas berdasarkan ID
+    $this->db->where('id', $id);
+    return $this->db->update('kelas', $data_update);
+  }
 }

@@ -70,6 +70,53 @@ document.querySelectorAll('.stars input').forEach((star) => {
 });
 </script>
 
+<script>
+$(document).ready(function() {
+  // For Edit Resep
+  $('#editResepModal').on('show.bs.modal', function(event) {
+    var button = $(event.relatedTarget); // Button that triggered the modal
+    var id = button.data('id');
+    var nama_resep = button.data('nama_resep');
+    var negara = button.data('negara');
+    var deskripsi = button.data('deskripsi');
+    var bahan = button.data('bahan');
+    var langkah = button.data('langkah');
+    var video_url = button.data('video_url');
+    var gambar = button.data('gambar');
+
+    var modal = $(this);
+    modal.find('#resep_id').val(id);
+    modal.find('#nama_resep').val(nama_resep);
+    modal.find('#negara').val(negara);
+    modal.find('#deskripsi').val(deskripsi);
+    modal.find('#bahan').val(bahan);
+    modal.find('#langkah').val(langkah);
+    modal.find('#video_url').val(video_url);
+    modal.find('#gambar_lama').val(gambar);
+  });
+
+  // For Edit Kelas
+  $('#editKelasModal').on('show.bs.modal', function(event) {
+    var button = $(event.relatedTarget); // Button that triggered the modal
+    var id = button.data('id');
+    var nama_kelas = button.data('nama_kelas');
+    var deskripsi = button.data('deskripsi');
+    var harga = button.data('harga');
+    var status_kelas = button.data('status_kelas');
+    var status = button.data('status');
+    var gambar = button.data('gambar');
+
+    var modal = $(this);
+    modal.find('#kelas_id').val(id);
+    modal.find('#nama_kelas').val(nama_kelas);
+    modal.find('#deskripsi').val(deskripsi);
+    modal.find('#harga').val(harga);
+    modal.find('#status_kelas').val(status_kelas);
+    modal.find('#status').val(status);
+    modal.find('#gambar_lama').val(gambar);
+  });
+});
+</script>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
   integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

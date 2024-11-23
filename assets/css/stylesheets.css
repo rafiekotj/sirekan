@@ -540,3 +540,23 @@ footer a:hover {
 	background-color: #ffd282;
 	color: black;
 }
+
+/* ADMIN */
+.list-group-item h5,
+.list-group-item p,
+.list-group-item small {
+	color: black !important; /* Warna teks item menjadi hitam */
+}
+
+.list-group {
+	border: 1px solid #ddd; /* Tambahkan border */
+	border-radius: 5px; /* Opsional: Tambahkan efek sudut melengkung */
+	overflow-y: auto; /* Pastikan scroll vertikal aktif */
+	padding: 0; /* Hilangkan padding default */
+}
+.list-group-item {
+	border-bottom: 1px solid #ddd; /* Tambahkan border antar item */
+}
+.list-group-item:last-child {
+	border-bottom: none; /* Hilangkan border di item terakhir */
+}

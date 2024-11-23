@@ -63,4 +63,22 @@ class ModelResep extends CI_Model
     ];
     return $this->db->insert('resep', $data_insert);
   }
+
+  public function update_resep($id, $data)
+  {
+    // Menyiapkan data yang akan diperbarui
+    $data_update = [
+      'nama_resep' => $data['nama_resep'],
+      'negara' => $data['negara'],
+      'deskripsi' => $data['deskripsi'],
+      'bahan' => $data['bahan'],
+      'langkah' => $data['langkah'],
+      'gambar' => $data['gambar'],  // pastikan ini sesuai dengan data yang dipilih (gambar baru atau lama)
+      'video_url' => $data['video_url']
+    ];
+
+    // Update data resep berdasarkan ID
+    $this->db->where('id', $id);
+    return $this->db->update('resep', $data_update);
+  }
 }
