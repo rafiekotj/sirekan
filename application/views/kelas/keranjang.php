@@ -1,11 +1,11 @@
-<div class="container my-4 keranjang">
+<div class="container my-5 keranjang">
   <?php if ($this->session->flashdata('message')): ?>
   <div class="alert alert-warning">
     <?= $this->session->flashdata('message'); ?>
   </div>
   <?php endif; ?>
 
-  <h2 class="text-center mb-4">Keranjang Kelas</h2>
+  <h1 class="text-center mb-5" style="font-weight: 600; letter-spacing: 8px;">Keranjang Kelas</h1>
 
   <div class="mt-4 d-flex justify-content-between">
     <a href="<?= site_url('kelas') ?>" class="btn btn-secondary ms-2">Kembali</a>

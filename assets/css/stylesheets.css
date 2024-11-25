@@ -67,15 +67,16 @@ body {
 	width: 100%;
 }
 
-.nav-link .fa-shopping-cart {
-	font-size: 1.5rem;
-	position: relative;
+.fas.fa-shopping-cart {
+	display: inline-block;
+	font-size: 1.5em; /* Menyesuaikan ukuran ikon */
+	color: #000; /* Menyesuaikan warna ikon */
 }
 
 #cart-count {
 	font-size: 0.8rem;
 	position: absolute;
-	top: -8px; /* Mengatur posisi di atas ikon */
+	top: 0px; /* Mengatur posisi di atas ikon */
 	right: -10px; /* Menyesuaikan jarak ke kanan */
 	padding: 0.2rem 0.4rem;
 }
@@ -88,22 +89,21 @@ body {
 	align-self: center; /* Untuk menyelaraskan dengan navbar */
 }
 
-.dropdown-menu {
-	box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-	right: 0; /* Menjaga dropdown tetap pada sisi kanan elemen induknya */
-	left: auto; /* Menonaktifkan properti kiri */
-	max-width: 300px; /* Sesuaikan lebar maksimum dropdown jika diperlukan */
-	overflow-wrap: break-word;
-}
-
-.navbar .fa-user-circle {
-	font-size: 1.5em;
-	color: black;
-}
-
 /* RIWAYAT PEMBELIAN */
-.riwayat_bayar {
-	height: calc(100vh - 116px); /* Mengurangi tinggi navbar 60px */
+.fixed-table {
+	min-height: 100px; /* Set the minimum height of the table */
+	max-height: 500px; /* Set the maximum height of the table */
+	overflow-y: auto; /* Make the table scrollable when there are many rows */
+}
+
+.table th,
+.table td {
+	vertical-align: middle;
+	text-align: center;
+}
+
+.table td {
+	min-width: 100px; /* Optional: Ensure columns have a minimum width */
 }
 
 /* HOME */
@@ -559,4 +559,33 @@ footer a:hover {
 }
 .list-group-item:last-child {
 	border-bottom: none; /* Hilangkan border di item terakhir */
+}
+
+.sukses_button {
+	background-color: #feac3f;
+	border: none;
+	color: black;
+	padding: 8px 16px;
+	font-size: 16px;
+	border-radius: 8px;
+}
+
+.sukses_button:hover {
+	background-color: #ffd282;
+	color: black;
+}
+
+.profile-image-wrapper {
+	width: 150px;
+	height: 150px;
+	border-radius: 50%; /* Membuat gambar berbentuk bulat */
+	overflow: hidden; /* Menghindari elemen gambar keluar dari batas */
+	display: inline-block; /* Supaya wrapper mengikuti ukuran yang diatur */
+}
+
+.profile-image {
+	width: 100%;
+	height: 100%;
+	object-fit: cover; /* Membuat gambar menyesuaikan dengan container */
+	display: block;
 }

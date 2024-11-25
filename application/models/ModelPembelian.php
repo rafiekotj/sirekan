@@ -3,7 +3,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class ModelPembelian extends CI_Model
 {
-
   public function get_riwayat_pembelian($user_id)
   {
     $this->db->select('pembelian.*, kelas.nama_kelas');

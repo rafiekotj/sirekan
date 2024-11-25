@@ -56,8 +56,9 @@
           <a class="nav-link" href="<?= site_url('keranjang') ?>">
             <i class="fas fa-shopping-cart"></i>
             <?php if ($this->session->userdata('user_id')): ?>
-            <span
-              class="badge badge-danger"><?= count($this->session->userdata('cart') ? $this->session->userdata('cart') : []) ?></span>
+            <span class="badge badge-danger">
+              <?= count($this->session->userdata('cart') ? $this->session->userdata('cart') : []) ?>
+            </span>
             <?php endif; ?>
           </a>
         </li>
@@ -66,27 +67,23 @@
 
         <?php if ($this->session->userdata('user_id')): ?>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
+          <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">
             <?php
-              $profil_image = $this->session->userdata('profil_image');
-              $image = isset($profil_image) ? $profil_image : 'default-profile.jpg';
+              $profil_image = $this->session->userdata('profil_image') ?: 'default-profile.jpg';
               ?>
-            <img src="<?= base_url('assets/img/upload/' . $image) ?>" alt="Profile" width="30"
+            <img src="<?= base_url('assets/img/upload/' . $profil_image) ?>" alt="Profile" width="30" height="30"
               class="rounded-circle mx-1">
             <?= $this->session->userdata('nama_lengkap') ?>
           </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="<?= site_url('akun') ?>">Akun</a>
-
             <?php if ($this->session->userdata('role') === 'peserta'): ?>
             <a class="dropdown-item" href="<?= site_url('pembelian') ?>">Riwayat Pembelian</a>
             <?php endif; ?>
-
             <?php if ($this->session->userdata('role') === 'admin'): ?>
             <a class="dropdown-item" href="<?= site_url('admin') ?>">Admin</a>
             <?php endif; ?>
-
             <a class="dropdown-item" href="<?= site_url('auth/logout') ?>">Logout</a>
           </div>
         </li>

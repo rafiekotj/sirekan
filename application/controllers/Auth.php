@@ -21,6 +21,7 @@ class Auth extends CI_Controller
           'user_id' => $user->id,
           'username' => $user->username,
           'nama_lengkap' => $user->nama_lengkap,
+          'profil_image' => $user->profil_image ?: 'default-profile.jpg',
           'role' => $user->role,
         ]);
         redirect('home');

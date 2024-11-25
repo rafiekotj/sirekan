@@ -81,12 +81,13 @@ class Akun extends CI_Controller
     ];
 
     if ($this->ModelUser->update_user($user_id, $update_data)) {
+      $this->session->set_userdata('profil_image', $profile_image); // Update session
       $data['success_message'] = 'Profile updated successfully!';
     } else {
       $data['error_message'] = 'An error occurred while updating the profile.';
     }
 
-    $data['user'] = $this->ModelUser->get_user_by_id($user_id);
+    $data['user'] = $this->ModelUser->getUserById($user_id);
     $data['profil_image'] = $data['user']->profil_image;
 
     $this->load->view('templates/header');

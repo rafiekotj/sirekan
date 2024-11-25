@@ -27,6 +27,13 @@ class ModelUser extends CI_Model
     return $this->db->get_where('users', ['id' => $id])->row();
   }
 
+  // Perbarui data user
+  public function update_user($user_id, $data)
+  {
+    $this->db->where('id', $user_id);
+    return $this->db->update('users', $data); // Update data user di tabel 'users'
+  }
+
   // Fungsi untuk memperbarui status membership pengguna
   public function update_membership($user_id, $membership_type)
   {

@@ -46,23 +46,12 @@ class ModelKeranjang extends CI_Model
   {
     $this->db->where('id', $item_id);
     $this->db->where('user_id', $user_id);
-
-    $item = $this->db->get('keranjang')->row();
-    if ($item) {
-      $this->db->delete('keranjang');
-    } else {
-      return false; // Return false if item does not exist
-    }
+    return $this->db->delete('keranjang'); // Delete langsung dengan klausa WHERE
   }
 
   public function delete_all_by_user($user_id)
   {
     $this->db->where('user_id', $user_id);
-    $query = $this->db->get('keranjang');
-    if ($query->num_rows() > 0) {
-      $this->db->delete('keranjang');
-    } else {
-      return false; // Return false if no items are found for this user
-    }
+    return $this->db->delete('keranjang'); // Delete langsung tanpa query tambahan
   }
 }

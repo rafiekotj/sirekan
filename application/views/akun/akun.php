@@ -7,8 +7,9 @@
       <div class="col-md-4">
         <!-- Profile Image -->
         <div class="text-center">
-          <img src="<?= base_url('assets/img/upload/' . $profil_image) ?>" alt="Profile Image" class="rounded-circle"
-            width="150">
+          <div class="profile-image-wrapper">
+            <img src="<?= base_url('assets/img/upload/' . $profil_image) ?>" alt="Profile Image" class="profile-image">
+          </div>
           <div class="mt-3">
             <input type="file" name="profile_image" class="form-control-file">
           </div>

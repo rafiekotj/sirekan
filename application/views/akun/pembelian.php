@@ -1,8 +1,8 @@
-<div class="container my-4 riwayat_bayar">
-  <h2 class="text-center mb-4">Riwayat Pembelian</h2>
+<div class="container my-5 riwayat_bayar">
+  <h2 class="text-center mb-5" style="font-weight: 600; letter-spacing: 8px;">Riwayat Pembelian</h2>
   <a href="<?= site_url('home') ?>" class="btn btn-primary">Kembali</a>
   <hr>
-  <table class="table table-bordered">
+  <table class="table table-bordered fixed-table">
     <thead>
       <tr>
         <th>No</th>
