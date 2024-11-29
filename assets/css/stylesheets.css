@@ -73,14 +73,6 @@ body {
 	color: #000; /* Menyesuaikan warna ikon */
 }
 
-#cart-count {
-	font-size: 0.8rem;
-	position: absolute;
-	top: 0px; /* Mengatur posisi di atas ikon */
-	right: -10px; /* Menyesuaikan jarak ke kanan */
-	padding: 0.2rem 0.4rem;
-}
-
 .navbar-divider {
 	width: 1px;
 	height: 24px;

@@ -2,7 +2,7 @@
   <h1 class="text-center text-uppercase mb-5" style="font-weight: 600; letter-spacing: 8px;">About Us</h1>
   <div class="row">
     <div class="col-md-6">
-      <img src="https://via.placeholder.com/500x300" alt="Sirekan" class="img-fluid rounded">
+      <h1 class="text-center" style="font-weight: 600; letter-spacing: 16px; color: orange;">SIREKAN</h1>
     </div>
     <div class="col-md-6">
       <p style="text-align: justify;">

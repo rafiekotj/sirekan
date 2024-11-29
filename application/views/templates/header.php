@@ -55,11 +55,6 @@
         <li class="nav-item">
           <a class="nav-link" href="<?= site_url('keranjang') ?>">
             <i class="fas fa-shopping-cart"></i>
-            <?php if ($this->session->userdata('user_id')): ?>
-            <span class="badge badge-danger">
-              <?= count($this->session->userdata('cart') ? $this->session->userdata('cart') : []) ?>
-            </span>
-            <?php endif; ?>
           </a>
         </li>
 

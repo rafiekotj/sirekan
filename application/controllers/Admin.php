@@ -24,6 +24,8 @@ class Admin extends CI_Controller
 
   public function tambah_resep()
   {
+    $data['title'] = 'Tambah Resep';
+
     $this->form_validation->set_rules('nama_resep', 'Nama Resep', 'required');
     $this->form_validation->set_rules('negara', 'Negara', 'required');
     $this->form_validation->set_rules('deskripsi', 'Deskripsi', 'required');
@@ -31,7 +33,7 @@ class Admin extends CI_Controller
     $this->form_validation->set_rules('langkah', 'Langkah', 'required');
 
     if ($this->form_validation->run() == FALSE) {
-      $this->load->view('templates/header');
+      $this->load->view('templates/header', $data);
       $this->load->view('admin/tambah_resep');
       $this->load->view('templates/footer');
     } else {
@@ -110,6 +112,8 @@ class Admin extends CI_Controller
 
   public function tambah_kelas()
   {
+    $data['title'] = 'Tambah Kelas';
+
     $this->form_validation->set_rules('nama_kelas', 'Nama Kelas', 'required');
     $this->form_validation->set_rules('instruktur', 'Instruktur', 'required');
     $this->form_validation->set_rules('tanggal_mulai', 'Tanggal Mulai', 'required');
@@ -121,7 +125,9 @@ class Admin extends CI_Controller
     $this->form_validation->set_rules('status', 'Status', 'required');
 
     if ($this->form_validation->run() == FALSE) {
-      $this->index();
+      $this->load->view('templates/header', $data);
+      $this->load->view('admin/tambah_kelas');
+      $this->load->view('templates/footer');
     } else {
       $gambar = $_FILES['gambar']['name'];
       if ($gambar) {
