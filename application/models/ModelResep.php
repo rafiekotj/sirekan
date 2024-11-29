@@ -3,7 +3,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class ModelResep extends CI_Model
 {
-  // Mendapatkan semua resep, dapat difilter berdasarkan negara dan pencarian
+
   public function get_all_recipes($negara = null, $search = null)
   {
     if ($negara) {
@@ -15,7 +15,6 @@ class ModelResep extends CI_Model
     return $this->db->get('resep')->result();
   }
 
-  // Mendapatkan daftar negara dari resep
   public function get_countries()
   {
     $this->db->select('negara');
@@ -23,7 +22,6 @@ class ModelResep extends CI_Model
     return $this->db->get('resep')->result();
   }
 
-  // Mendapatkan jumlah total resep sesuai filter
   public function get_total_recipes($negara = null, $search = null)
   {
     if ($negara) {
@@ -35,7 +33,6 @@ class ModelResep extends CI_Model
     return $this->db->count_all_results('resep');
   }
 
-  // Mendapatkan resep dengan batasan pagination
   public function get_recipes_paginated($negara = null, $search = null, $limit, $start)
   {
     if ($negara) {
@@ -49,7 +46,11 @@ class ModelResep extends CI_Model
     return $this->db->get('resep')->result();
   }
 
-  // Fungsi untuk menambahkan resep baru
+  public function get_resep_by_id($id)
+  {
+    return $this->db->get_where('resep', ['id' => $id])->row();
+  }
+
   public function tambah_resep($data)
   {
     $data_insert = [
@@ -66,19 +67,24 @@ class ModelResep extends CI_Model
 
   public function update_resep($id, $data)
   {
-    // Menyiapkan data yang akan diperbarui
+
     $data_update = [
       'nama_resep' => $data['nama_resep'],
       'negara' => $data['negara'],
       'deskripsi' => $data['deskripsi'],
       'bahan' => $data['bahan'],
       'langkah' => $data['langkah'],
-      'gambar' => $data['gambar'],  // pastikan ini sesuai dengan data yang dipilih (gambar baru atau lama)
+      'gambar' => $data['gambar'],
       'video_url' => $data['video_url']
     ];
 
-    // Update data resep berdasarkan ID
     $this->db->where('id', $id);
     return $this->db->update('resep', $data_update);
+  }
+
+  public function delete($id)
+  {
+
+    return $this->db->where('id', $id)->delete('resep');
   }
 }

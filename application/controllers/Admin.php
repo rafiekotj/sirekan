@@ -6,75 +6,24 @@ class Admin extends CI_Controller
   public function __construct()
   {
     parent::__construct();
-    // Memuat model yang diperlukan
-    $this->load->model('ModelKelas');
-    $this->load->model('ModelResep');
-    // Pastikan hanya admin yang bisa mengakses controller ini
     if ($this->session->userdata('role') != 'admin') {
       redirect('home');
     }
   }
 
-  // Fungsi untuk menampilkan halaman admin
   public function index()
   {
     $data['title'] = 'Admin';
+    $data['kelas'] = $this->ModelKelas->get_filtered_classes();
+    $data['resep'] = $this->ModelResep->get_all_recipes();
 
-    $data['kelas'] = $this->ModelKelas->get_kelas_paged(10, 0); // Mendapatkan kelas untuk ditampilkan
-    $data['resep'] = $this->ModelResep->get_all_recipes(); // Mendapatkan resep untuk ditampilkan
-
-    // Memuat view admin/admin.php
     $this->load->view('templates/header', $data);
     $this->load->view('admin/admin', $data);
     $this->load->view('templates/footer');
   }
 
-  // Fungsi untuk menambah kelas
-  public function tambah_kelas()
-  {
-    // Validasi form untuk penambahan kelas
-    $this->form_validation->set_rules('nama_kelas', 'Nama Kelas', 'required');
-    $this->form_validation->set_rules('deskripsi', 'Deskripsi', 'required');
-    $this->form_validation->set_rules('harga', 'Harga', 'required|numeric');
-    $this->form_validation->set_rules('status_kelas', 'Status Kelas', 'required');
-    $this->form_validation->set_rules('status', 'Status', 'required');
-
-    if ($this->form_validation->run() == FALSE) {
-      $this->index(); // Jika validasi gagal, kembali ke halaman admin
-    } else {
-      // Upload gambar kelas jika ada
-      $gambar = $_FILES['gambar']['name'];
-      if ($gambar) {
-        $config['upload_path'] = './assets/img/upload/';
-        $config['allowed_types'] = 'jpg|jpeg|png';
-        $this->load->library('upload', $config);
-
-        if (!$this->upload->do_upload('gambar')) {
-          echo $this->upload->display_errors();
-        } else {
-          $gambar = $this->upload->data('file_name');
-        }
-      }
-
-      // Menyimpan data kelas ke dalam database
-      $data = [
-        'nama_kelas' => $this->input->post('nama_kelas'),
-        'deskripsi' => $this->input->post('deskripsi'),
-        'harga' => $this->input->post('harga'),
-        'gambar' => $gambar,
-        'status_kelas' => $this->input->post('status_kelas'),
-        'status' => $this->input->post('status')
-      ];
-
-      $this->ModelKelas->tambah_kelas($data);
-      redirect('Admin'); // Kembali ke halaman admin setelah penambahan
-    }
-  }
-
-  // Fungsi untuk menambah resep
   public function tambah_resep()
   {
-    // Validasi form untuk penambahan resep
     $this->form_validation->set_rules('nama_resep', 'Nama Resep', 'required');
     $this->form_validation->set_rules('negara', 'Negara', 'required');
     $this->form_validation->set_rules('deskripsi', 'Deskripsi', 'required');
@@ -82,9 +31,98 @@ class Admin extends CI_Controller
     $this->form_validation->set_rules('langkah', 'Langkah', 'required');
 
     if ($this->form_validation->run() == FALSE) {
-      $this->index(); // Jika validasi gagal, kembali ke halaman admin
+      $this->load->view('templates/header');
+      $this->load->view('admin/tambah_resep');
+      $this->load->view('templates/footer');
     } else {
-      // Upload gambar resep jika ada
+      $config['upload_path'] = './assets/img/upload';
+      $config['allowed_types'] = 'jpg|jpeg|png|gif';
+      $config['max_size'] = 2048;
+
+      $this->load->library('upload', $config);
+
+      if ($this->upload->do_upload('gambar')) {
+        $gambar = $this->upload->data('file_name');
+      } else {
+        $gambar = NULL;
+      }
+
+      $data = array(
+        'nama_resep' => $this->input->post('nama_resep'),
+        'negara' => $this->input->post('negara'),
+        'deskripsi' => $this->input->post('deskripsi'),
+        'bahan' => $this->input->post('bahan'),
+        'langkah' => $this->input->post('langkah'),
+        'gambar' => $gambar,
+        'video_url' => $this->input->post('video_url')
+      );
+
+      $this->ModelResep->tambah_resep($data);
+      redirect('admin');
+    }
+  }
+
+  public function update_resep()
+  {
+    $id = $this->input->post('id');
+    $nama_resep = $this->input->post('nama_resep');
+    $negara = $this->input->post('negara');
+    $deskripsi = $this->input->post('deskripsi');
+    $bahan = $this->input->post('bahan');
+    $langkah = $this->input->post('langkah');
+    $video_url = $this->input->post('video_url');
+
+    $gambar_lama = $this->input->post('gambar_lama');
+    $gambar_baru = $_FILES['gambar']['name'];
+
+    if ($gambar_baru) {
+      $config['upload_path'] = './assets/img/upload/';
+      $config['allowed_types'] = 'jpg|jpeg|png|gif';
+      $config['file_name'] = time() . '_' . $gambar_baru;
+
+      $this->load->library('upload', $config);
+
+      if ($this->upload->do_upload('gambar')) {
+        $gambar = $this->upload->data('file_name');
+      } else {
+        $gambar = $gambar_lama;
+      }
+    } else {
+      $gambar = $gambar_lama;
+    }
+
+    $data = [
+      'nama_resep' => $nama_resep,
+      'negara' => $negara,
+      'deskripsi' => $deskripsi,
+      'bahan' => $bahan,
+      'langkah' => $langkah,
+      'video_url' => $video_url,
+      'gambar' => $gambar,
+      'updated_at' => date('Y-m-d H:i:s')
+    ];
+
+    $this->ModelResep->update_resep($id, $data);
+
+    $this->session->set_flashdata('success', 'Resep berhasil diperbarui!');
+    redirect('admin');
+  }
+
+  public function tambah_kelas()
+  {
+    $this->form_validation->set_rules('nama_kelas', 'Nama Kelas', 'required');
+    $this->form_validation->set_rules('instruktur', 'Instruktur', 'required');
+    $this->form_validation->set_rules('tanggal_mulai', 'Tanggal Mulai', 'required');
+    $this->form_validation->set_rules('deskripsi', 'Deskripsi', 'required');
+    $this->form_validation->set_rules('harga', 'Harga', 'required|numeric');
+    $this->form_validation->set_rules('bahan_bahan', 'Bahan-bahan', 'required');
+    $this->form_validation->set_rules('alat_alat', 'Alat-alat', 'required');
+    $this->form_validation->set_rules('status_kelas', 'Status Kelas', 'required');
+    $this->form_validation->set_rules('status', 'Status', 'required');
+
+    if ($this->form_validation->run() == FALSE) {
+      $this->index();
+    } else {
       $gambar = $_FILES['gambar']['name'];
       if ($gambar) {
         $config['upload_path'] = './assets/img/upload/';
@@ -98,91 +136,107 @@ class Admin extends CI_Controller
         }
       }
 
-      // Menyimpan data resep ke dalam database
       $data = [
-        'nama_resep' => $this->input->post('nama_resep'),
-        'negara' => $this->input->post('negara'),
+        'nama_kelas' => $this->input->post('nama_kelas'),
+        'instruktur' => $this->input->post('instruktur'),
+        'tanggal_mulai' => $this->input->post('tanggal_mulai'),
         'deskripsi' => $this->input->post('deskripsi'),
-        'bahan' => $this->input->post('bahan'),
-        'langkah' => $this->input->post('langkah'),
+        'harga' => $this->input->post('harga'),
+        'bahan_bahan' => $this->input->post('bahan_bahan'),
+        'alat_alat' => $this->input->post('alat_alat'),
         'gambar' => $gambar,
-        'video_url' => $this->input->post('video_url')
+        'status_kelas' => $this->input->post('status_kelas'),
+        'status' => $this->input->post('status')
       ];
 
-      $this->ModelResep->tambah_resep($data);
-      redirect('Admin'); // Kembali ke halaman admin setelah penambahan
+      $this->ModelKelas->tambah_kelas($data);
+      redirect('admin');
     }
-  }
-
-  public function update_resep()
-  {
-    $id = $this->input->post('id');
-    $data = [
-      'nama_resep' => $this->input->post('nama_resep'),
-      'negara' => $this->input->post('negara'),
-      'deskripsi' => $this->input->post('deskripsi'),
-      'bahan' => $this->input->post('bahan'),
-      'langkah' => $this->input->post('langkah'),
-      'video_url' => $this->input->post('video_url')
-    ];
-
-    // Cek jika ada gambar baru yang diunggah
-    if ($_FILES['gambar']['name']) {
-      $config['upload_path'] = './assets/img/upload/';
-      $config['allowed_types'] = 'jpg|jpeg|png|gif';
-      $config['max_size'] = 2048; // Maksimal ukuran 2MB
-
-      $this->load->library('upload', $config);
-
-      if ($this->upload->do_upload('gambar')) {
-        $file_data = $this->upload->data();
-        $data['gambar'] = $file_data['file_name']; // Gambar baru
-      }
-    } else {
-      $data['gambar'] = $this->input->post('gambar_lama'); // Jika tidak ada gambar baru, pakai gambar lama
-    }
-
-    // Panggil ModelResep untuk update resep
-    $this->load->model('ModelResep');
-    $this->ModelResep->update_resep($id, $data);
-
-    // Redirect atau tampilkan pesan sukses
-    redirect('Admin/resep');
   }
 
   public function update_kelas()
   {
     $id = $this->input->post('id');
+
     $data = [
       'nama_kelas' => $this->input->post('nama_kelas'),
       'deskripsi' => $this->input->post('deskripsi'),
       'harga' => $this->input->post('harga'),
       'status_kelas' => $this->input->post('status_kelas'),
       'status' => $this->input->post('status'),
-      'kategori' => $this->input->post('kategori')
+      'kategori' => $this->input->post('kategori'),
+      'instruktur' => $this->input->post('instruktur'),
+      'tanggal_mulai' => $this->input->post('tanggal_mulai'),
+      'bahan_bahan' => $this->input->post('bahan_bahan'),
+      'alat_alat' => $this->input->post('alat_alat')
     ];
 
-    // Cek jika ada gambar baru yang diunggah
     if ($_FILES['gambar']['name']) {
       $config['upload_path'] = './assets/img/upload/';
       $config['allowed_types'] = 'jpg|jpeg|png|gif';
-      $config['max_size'] = 2048; // Maksimal ukuran 2MB
+      $config['max_size'] = 2048;
 
       $this->load->library('upload', $config);
 
       if ($this->upload->do_upload('gambar')) {
         $file_data = $this->upload->data();
-        $data['gambar'] = $file_data['file_name']; // Gambar baru
+        $data['gambar'] = $file_data['file_name'];
       }
     } else {
-      $data['gambar'] = $this->input->post('gambar_lama'); // Jika tidak ada gambar baru, pakai gambar lama
+      $data['gambar'] = $this->input->post('gambar_lama');
     }
 
-    // Panggil ModelKelas untuk update kelas
     $this->load->model('ModelKelas');
     $this->ModelKelas->update_kelas($id, $data);
 
-    // Redirect atau tampilkan pesan sukses
-    redirect('Admin/kelas');
+    redirect('admin');
+  }
+
+  public function edit_resep($id)
+  {
+    $data['title'] = 'Edit Resep';
+    $data['resep'] = $this->ModelResep->get_resep_by_id($id);
+
+    if (!$data['resep']) {
+      show_404();
+    }
+
+    $this->load->view('templates/header', $data);
+    $this->load->view('admin/edit_resep', $data);
+    $this->load->view('templates/footer');
+  }
+
+  public function edit_kelas($id)
+  {
+    $data['title'] = 'Edit Kelas';
+    $data['kelas'] = $this->ModelKelas->get_kelas_by_id($id);
+
+    if (!$data['kelas']) {
+      show_404();
+    }
+
+    $this->load->view('templates/header', $data);
+    $this->load->view('admin/edit_kelas', $data);
+    $this->load->view('templates/footer');
+  }
+
+  public function hapus_resep($id)
+  {
+    if ($this->ModelResep->delete($id)) {
+      redirect('admin');
+    } else {
+      $this->session->set_flashdata('error', 'Gagal menghapus resep.');
+      redirect('admin');
+    }
+  }
+
+  public function hapus_kelas($id)
+  {
+    if ($this->ModelKelas->delete($id)) {
+      redirect('admin');
+    } else {
+      $this->session->set_flashdata('error', 'Gagal menghapus kelas.');
+      redirect('admin');
+    }
   }
 }

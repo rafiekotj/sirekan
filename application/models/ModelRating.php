@@ -3,17 +3,15 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class ModelRating extends CI_Model
 {
-  // Fungsi untuk mengambil rating rata-rata
   public function get_average_rating($id_resep)
   {
     $this->db->select_avg('rating');
     $this->db->where('resep_id', $id_resep);
     $query = $this->db->get('rating');
     $result = $query->row();
-    return $result->rating ? $result->rating : 0; // Mengembalikan 0 jika belum ada rating
+    return $result->rating ? $result->rating : 0;
   }
 
-  // Fungsi untuk memeriksa apakah pengguna sudah memberikan rating
   public function get_user_rating($id_resep, $user_id)
   {
     $this->db->where('resep_id', $id_resep);
@@ -22,7 +20,6 @@ class ModelRating extends CI_Model
     return $query->row();
   }
 
-  // Fungsi untuk menyimpan rating baru
   public function insert_rating($id_resep, $user_id, $rating)
   {
     $data = [
@@ -34,7 +31,6 @@ class ModelRating extends CI_Model
     return $this->db->insert('rating', $data);
   }
 
-  // Fungsi untuk memperbarui rating yang sudah ada
   public function update_rating($id_resep, $user_id, $rating)
   {
     $data = [

@@ -1,4 +1,5 @@
 <?php
+defined('BASEPATH') or exit('No direct script access allowed');
 
 class ModelKelas extends CI_Model
 {
@@ -7,39 +8,36 @@ class ModelKelas extends CI_Model
     parent::__construct();
   }
 
-  // Fungsi untuk mendapatkan jumlah total kelas (termasuk filter pencarian dan kategori)
   public function get_total_kelas_filtered($search = '', $kategori = '')
   {
     if ($search) {
-      $this->db->like('nama_kelas', $search); // Filter berdasarkan nama kelas
+      $this->db->like('nama_kelas', $search);
     }
     if ($kategori) {
-      $this->db->where('kategori', $kategori); // Filter berdasarkan kategori
+      $this->db->where('kategori', $kategori);
     }
 
     $query = $this->db->get('kelas');
-    return $query->num_rows(); // Mengembalikan jumlah total kelas yang ditemukan
+    return $query->num_rows();
   }
 
-  // Fungsi untuk mendapatkan kelas dengan filter pencarian dan kategori, dan menggunakan pagination
   public function get_filtered_classes($search = '', $kategori = '', $limit = NULL, $offset = NULL)
   {
     if ($search) {
-      $this->db->like('nama_kelas', $search); // Filter berdasarkan nama kelas
+      $this->db->like('nama_kelas', $search);
     }
     if ($kategori) {
-      $this->db->where('kategori', $kategori); // Filter berdasarkan kategori
+      $this->db->where('kategori', $kategori);
     }
 
     if ($limit) {
-      $this->db->limit($limit, $offset); // Menambahkan limit dan offset untuk pagination
+      $this->db->limit($limit, $offset);
     }
 
     $query = $this->db->get('kelas');
     return $query->result();
   }
 
-  // Fungsi untuk mendapatkan kategori unik dari kelas
   public function get_categories()
   {
     $this->db->distinct();
@@ -48,7 +46,6 @@ class ModelKelas extends CI_Model
     return $query->result();
   }
 
-  // Fungsi untuk mendapatkan jumlah total kelas
   public function get_total_kelas()
   {
     return $this->db->count_all('kelas');
@@ -58,11 +55,11 @@ class ModelKelas extends CI_Model
   {
     $this->db->limit($limit, $start);
     $this->db->select('*');
-    $query = $this->db->get('kelas');
+    $this->db->from('kelas');
+    $query = $this->db->get();
     return $query->result();
   }
 
-  // Mendapatkan kelas berdasarkan ID
   public function get_kelas_by_id($id)
   {
     $this->db->select('*');
@@ -72,7 +69,6 @@ class ModelKelas extends CI_Model
     return $query->row();
   }
 
-  // Fungsi untuk menambahkan kelas baru
   public function tambah_kelas($data)
   {
     $data_insert = [
@@ -82,12 +78,15 @@ class ModelKelas extends CI_Model
       'gambar' => $data['gambar'],
       'status_kelas' => $data['status_kelas'],
       'status' => $data['status'],
-      'kategori' => $data['kategori'] // Pastikan kategori juga disertakan
+      'kategori' => $data['kategori'],
+      'instruktur' => $data['instruktur'],
+      'tanggal_mulai' => $data['tanggal_mulai'],
+      'bahan_bahan' => $data['bahan_bahan'],
+      'alat_alat' => $data['alat_alat']
     ];
     return $this->db->insert('kelas', $data_insert);
   }
 
-  // Fungsi untuk mendapatkan item keranjang berdasarkan user_id
   public function get_items_in_cart($user_id)
   {
     $this->db->select('keranjang.*, kelas.id as kelas_id, kelas.nama_kelas, kelas.harga, kelas.gambar');
@@ -96,24 +95,31 @@ class ModelKelas extends CI_Model
     $this->db->where('keranjang.user_id', $user_id);
     $query = $this->db->get();
 
-    return $query->result(); // Mengembalikan hasil sebagai array objek
+    return $query->result();
   }
 
   public function update_kelas($id, $data)
   {
-    // Menyiapkan data yang akan diperbarui
     $data_update = [
       'nama_kelas' => $data['nama_kelas'],
       'deskripsi' => $data['deskripsi'],
       'harga' => $data['harga'],
-      'gambar' => $data['gambar'],  // pastikan ini sesuai dengan data yang dipilih (gambar baru atau lama)
+      'gambar' => $data['gambar'],
       'status_kelas' => $data['status_kelas'],
       'status' => $data['status'],
-      'kategori' => $data['kategori']
+      'kategori' => $data['kategori'],
+      'instruktur' => $data['instruktur'],
+      'tanggal_mulai' => $data['tanggal_mulai'],
+      'bahan_bahan' => $data['bahan_bahan'],
+      'alat_alat' => $data['alat_alat']
     ];
 
-    // Update data kelas berdasarkan ID
     $this->db->where('id', $id);
     return $this->db->update('kelas', $data_update);
+  }
+
+  public function delete($id)
+  {
+    return $this->db->where('id', $id)->delete('kelas');
   }
 }

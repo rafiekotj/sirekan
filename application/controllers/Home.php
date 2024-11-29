@@ -6,14 +6,12 @@ class Home extends CI_Controller
   public function __construct()
   {
     parent::__construct();
-    $this->load->model('ModelHome');
   }
 
   public function index()
   {
     $data['title'] = 'Home';
 
-    // Load the homepage view
     $data['resep'] = $this->ModelHome->get_all_resep();
 
     $this->load->view('templates/header', $data);

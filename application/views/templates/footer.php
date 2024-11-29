@@ -72,9 +72,9 @@ document.querySelectorAll('.stars input').forEach((star) => {
 
 <script>
 $(document).ready(function() {
-  // For Edit Resep
+  // Untuk Edit Resep
   $('#editResepModal').on('show.bs.modal', function(event) {
-    var button = $(event.relatedTarget); // Button that triggered the modal
+    var button = $(event.relatedTarget); // Tombol yang memicu modal
     var id = button.data('id');
     var nama_resep = button.data('nama_resep');
     var negara = button.data('negara');
@@ -92,12 +92,12 @@ $(document).ready(function() {
     modal.find('#bahan').val(bahan);
     modal.find('#langkah').val(langkah);
     modal.find('#video_url').val(video_url);
-    modal.find('#gambar_lama').val(gambar);
+    modal.find('#gambar_lama').val(gambar); // jika perlu
   });
 
-  // For Edit Kelas
+  // Untuk Edit Kelas
   $('#editKelasModal').on('show.bs.modal', function(event) {
-    var button = $(event.relatedTarget); // Button that triggered the modal
+    var button = $(event.relatedTarget); // Tombol yang memicu modal
     var id = button.data('id');
     var nama_kelas = button.data('nama_kelas');
     var deskripsi = button.data('deskripsi');
@@ -113,7 +113,7 @@ $(document).ready(function() {
     modal.find('#harga').val(harga);
     modal.find('#status_kelas').val(status_kelas);
     modal.find('#status').val(status);
-    modal.find('#gambar_lama').val(gambar);
+    modal.find('#gambar_lama').val(gambar); // jika perlu
   });
 });
 </script>

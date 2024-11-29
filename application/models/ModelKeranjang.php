@@ -1,32 +1,30 @@
 <?php
+defined('BASEPATH') or exit('No direct script access allowed');
+
 class ModelKeranjang extends CI_Model
 {
   public function get_items_by_user($user_id)
   {
-    $this->db->select('keranjang.*, kelas.nama_kelas, kelas.harga, kelas.gambar'); // Include `harga` and other fields
+    $this->db->select('keranjang.*, kelas.nama_kelas, kelas.harga, kelas.gambar');
     $this->db->from('keranjang');
-    $this->db->join('kelas', 'kelas.id = keranjang.kelas_id'); // Join with the `kelas` table
+    $this->db->join('kelas', 'kelas.id = keranjang.kelas_id');
     $this->db->where('keranjang.user_id', $user_id);
     $query = $this->db->get();
-    return $query->result(); // Returns the items with kelas details
+    return $query->result();
   }
 
-
-  // Fungsi untuk menambahkan item ke keranjang
   public function insert($data)
   {
     if (isset($data['user_id']) && isset($data['kelas_id'])) {
       return $this->db->insert('keranjang', $data);
     }
-    return false; // Return false if data is invalid
+    return false;
   }
 
-
-  // Fungsi untuk memeriksa apakah kelas sudah ada di keranjang pengguna
   public function get_item_by_user_and_kelas($user_id, $kelas_id)
   {
     if (empty($user_id) || empty($kelas_id)) {
-      return null; // Return null if the user_id or kelas_id is empty
+      return null;
     }
 
     $this->db->select('*');
@@ -34,7 +32,7 @@ class ModelKeranjang extends CI_Model
     $this->db->where('user_id', $user_id);
     $this->db->where('kelas_id', $kelas_id);
     $query = $this->db->get();
-    return $query->row(); // Returns the row if the item is found, otherwise null
+    return $query->row();
   }
 
   public function get_by_id($id)
@@ -46,12 +44,12 @@ class ModelKeranjang extends CI_Model
   {
     $this->db->where('id', $item_id);
     $this->db->where('user_id', $user_id);
-    return $this->db->delete('keranjang'); // Delete langsung dengan klausa WHERE
+    return $this->db->delete('keranjang');
   }
 
   public function delete_all_by_user($user_id)
   {
     $this->db->where('user_id', $user_id);
-    return $this->db->delete('keranjang'); // Delete langsung tanpa query tambahan
+    return $this->db->delete('keranjang');
   }
 }
